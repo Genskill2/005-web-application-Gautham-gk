@@ -25,7 +25,7 @@ def search(field, value):
 def dashboard():
     conn = db.get_db()
     cursor = conn.cursor()
-    oby = request.args.get("order_by", "id") # TODO. This is currently not used. 
+    oby = request.args.get("order_by", "id") # TODO. This is currently not used.
     order = request.args.get("order", "asc")
     if order == "asc":
         cursor.execute(f"select p.id, p.name, p.bought, p.sold, s.name from pet p, animal s where p.species = s.id order by p.id")
@@ -36,7 +36,7 @@ def dashboard():
 
 
 @bp.route("/<pid>")
-def pet_info(pid): 
+def pet_info(pid):
     conn = db.get_db()
     cursor = conn.cursor()
     cursor.execute("select p.name, p.bought, p.sold, p.description, s.name from pet p, animal s where p.species = s.id and p.id = ?", [pid])
@@ -74,10 +74,14 @@ def edit(pid):
     elif request.method == "POST":
         description = request.form.get('description')
         sold = request.form.get("sold")
+        if sold==True:
+            salesdate=datetime.date.today()
+            cursor.execute("Update pet set (description,sold)=(?,?)    where id=(?)",(description,salesdate,[pid]))
+
         # TODO Handle sold
+        else:
+            cursor.execute("Update pet set description=(?)    where id=(?)",(description,pid))
         return redirect(url_for("pets.pet_info", pid=pid), 302)
-        
-    
 
-
-
+        cursor.execute("INSERT INTO table VALUES (%s, %s, %s)", (var1, var2, var3))
+# .execute('INSERT INTO stocks VALUES (?,?,?,?,?)', ('2006-03-28', 'BUY'

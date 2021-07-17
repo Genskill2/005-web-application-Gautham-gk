@@ -26,6 +26,12 @@
     <div class="form-check">
       {# TODO  Add sold checkbox here #}
       <label class="form-check-label" for="sold" > Sold </label>
+      {%if sold %}
+      <input type="checkbox" name="sold" value="True" id="sold" checked>
+      {% else %}
+      <input type="checkbox" name="sold" value="False" id="sold" unchecked >
+      {%endif%}
+
     </div>
   </div>
 

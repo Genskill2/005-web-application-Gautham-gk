@@ -13,7 +13,7 @@
               </tr>
               </thead>
               {% for id, name, bought, sold, species in pets %}
-              <tr>              
+              <tr>
                 <td scope="row" class="petid" ><a href="{{url_for('pets.pet_info', pid=id)}}">{{id}}</a></td>
                 <td class="petname">{{name}} </td>
                 <td class="petbought">{{bought}}</td>
